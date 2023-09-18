@@ -1,0 +1,116 @@
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.text.DecimalFormat;
+
+public class MainActivity extends AppCompatActivity {
+    public EditText input;
+    public TextView euroTV, dollarTV, frankTV;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        input = (EditText) findViewById(R.id.value);
+        euroTV = (TextView) findViewById(R.id.euro);
+        dollarTV = (TextView) findViewById(R.id.dolar);
+        frankTV = (TextView) findViewById(R.id.frank);
+    }
+
+    public void getValue(View view) {
+        try {
+            double euro, dollar, frank;
+            double inputValue = Double.parseDouble(String.valueOf(input.getText()));
+
+            euro = inputValue * 0.22;
+            dollar = inputValue * 0.23;
+            frank = inputValue * 0.21;
+
+            euroTV.setText(inputValue + "zł = " + String.format("%.2f", euro) + " euro");
+            dollarTV.setText(inputValue + "zł = " + String.format("%.2f", dollar) + " dolarów");
+            frankTV.setText(inputValue + "zł = " + String.format("%.2f", frank) + " franków");
+        }
+        catch(Exception ex) {
+            dollarTV.setText("");
+            frankTV.setText("");
+            euroTV.setText("Nieprawidłowa kwota");
+        }
+    }
+}
+
+
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Podaj kwotę w zł: "
+            android:textSize="24dp"/>
+
+        <EditText
+            android:id="@+id/value"
+            android:textSize="24dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        
+        <TextView
+            android:id="@+id/euro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/dolar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/frank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oblicz"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:onClick="getValue" />
+</LinearLayout>
